@@ -1,0 +1,6 @@
+*.log
+*.png
+/node_modules
+/errorShots
+/e2e/screenshots
+
