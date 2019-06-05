@@ -10,7 +10,7 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        'e2e/**/*.spec.ts'
+        'e2e/**/productgroup.spec.ts'
     ],
     // Patterns to exclude.
     exclude: [
@@ -74,10 +74,10 @@ exports.config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: 'http://qa.tom.com/',
+    baseUrl: 'http://ancon.wbo.daily:8081/',
     //
     // Default timeout for all waitFor* commands.
-    waitforTimeout: 100000,
+    waitforTimeout: 5000,
     //
     // Default timeout in milliseconds for request
     // if Selenium Grid doesn't send response

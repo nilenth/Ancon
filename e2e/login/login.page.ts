@@ -1,41 +1,37 @@
 import BasePage from '../BasePage';
 import { Client, Element, RawResult } from 'webdriverio';
+import { Welcomepage } from '../welcome/welcome.page';
 
 export class LoginPage extends BasePage {
 
-    private emailSelector = 'input[name=email]';
-    private passwordSelector = 'input[name=password]';
-    private loginButtonSelector = '.btn-default*=LOG';
-    private errorMessageSelector = '#errorMessage';
-    private titleSelector = 'h2';
+    private emailSelector = '//input[@placeholder="E-post"]';
+    private passwordSelector = '//input[@id="password"]';
+    private loginButtonSelector = '//button[@value="login"]';
+    private errorSelector = '//div[@class="danger validation-summary-errors"]';
 
-    get email() : Client<RawResult<Element>> {
-        return browser.$(this.emailSelector);
+    get email() { return $(this.emailSelector); }
+
+    get password() { return browser.$(this.passwordSelector); }
+
+    get loginButton() { return $(this.loginButtonSelector); }
+
+    get error(): string {
+        $(this.errorSelector).waitForVisible();
+        return $(this.errorSelector).getText();
     }
 
-    get password() : Client<RawResult<Element>> {
-        return browser.$(this.passwordSelector);
+    navigate() {
+        browser.windowHandleMaximize();
+        browser.url('');
     }
 
-    get loginButton() :  Client<RawResult<Element>> {
-        return browser.$(this.loginButtonSelector);
-    }
-
-    get title(): string {
-        return browser.getText(this.titleSelector);
-    }
-
-    public navigate(): void {
-        super.open('login');
-    }
-
-    public loginWithValidCredentials(email: string, password: string): void {
+    public loginWithValidCredentials(email: string, password: string): Welcomepage {
         this.login(email, password);
+        return new Welcomepage();
     }
 
-    public getLoginErrorMessage(): string {
-        browser.waitForVisible(this.errorMessageSelector, 10000);
-        return browser.getText(this.errorMessageSelector);
+    public loginWithInvalidCredentials(email: string, password: string): void {
+        this.login(email, password);
     }
 
     private setEmail(email: string): void {
@@ -47,6 +43,7 @@ export class LoginPage extends BasePage {
     }
 
     private login(email: string, password: string): void {
+        browser.waitForVisible(this.emailSelector);
         this.setEmail(email);
         this.setPassword(password);
         this.loginButton.click();

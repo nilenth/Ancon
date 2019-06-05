@@ -1,10 +1,11 @@
 import { expect } from 'chai';
 import { LoginPage } from './login.page';
-import { DashboardPage } from '../dashboard/dashboard.page';
+import { Welcomepage } from '../welcome/welcome.page';
 
 describe('Login page', () => {
     let n = 0;
     let loginPage: LoginPage;
+    let welcomePage: Welcomepage;
 
     afterEach((done) => {
         const filename = './e2e/screenshots/Login_'.concat(String(n), '.png');
@@ -17,18 +18,23 @@ describe('Login page', () => {
         loginPage.navigate();
     });
 
-    it('given invalid credentials should fail with a message', () => {
-        const errorMessage = loginPage.loginWithInvalidCredentials('invalid-user@gmail.com', 'password');
-        expect(errorMessage).to.be.equal('User not found');
+    it('Invalid credentials should show error messages', () => {
+        loginPage.loginWithInvalidCredentials('admin@ancon.io', 'invalid-password');
+        expect(loginPage.error).to.be.equal('Invalid username or password');
     });
 
-    it('given invalid password should fail with a message', () => {
-        const errorMessage = loginPage.loginWithInvalidCredentials('testcalcey1@gmail.com', 'invalid-password');
-        expect(errorMessage).to.be.equal('Wrong Email or Password');
+    it('Providing a valid Epost and not providing password should show error messages', () => {
+        loginPage.loginWithInvalidCredentials('admin@ancon.io', '');
+        expect(loginPage.error).to.be.equal('The Lösenord field is required.');
     });
 
-    it('given valid credentials should take to dashboard', () => {
-        const dashboardPage: DashboardPage = loginPage.loginWithValidCredentials('testcalcey1@gmail.com', 'user@123');
-        expect(dashboardPage.getTitle()).to.be.equal('Dashboard');
+    it('Not providing Epost and provide valid password should show error messages', () => {
+        loginPage.loginWithInvalidCredentials('', 'admin');
+        expect(loginPage.error).to.be.equal('The E-post field is required.');
+    });
+
+    it('given valid credentials should take to welcome page', () => {
+        welcomePage = loginPage.loginWithValidCredentials('admin@ancon.io', 'admin');
+        expect(welcomePage.title).to.be.equal('Welcome to your BackOffice');
     });
 });
