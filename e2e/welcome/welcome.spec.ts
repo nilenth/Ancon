@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { Welcomepage } from './welcome.page';
 import { LoginPage } from '../login/login.page';
-import { DashboardPage } from '../dasboard/dashboard.page';
+import { DashboardPage } from '../dashboard/dashboard.page';
 
 describe('Welcomepage', () => {
     let n = 0;
@@ -16,7 +16,7 @@ describe('Welcomepage', () => {
     beforeAll(() => {
         const loginPage: LoginPage = new LoginPage();
         loginPage.navigate();
-        welcomepage = loginPage.loginWithValidCredentials('admin@ancon.io', 'admin');
+        welcomepage = loginPage.loginWithValidCredentials('nalinda@calcey.com', 'User@123');
     });
 
     it('Select the first tenant from the dropdown', () => {

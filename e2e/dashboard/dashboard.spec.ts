@@ -18,7 +18,7 @@ describe('Dashboard page', () => {
     beforeAll(() => {
         const loginPage: LoginPage = new LoginPage();
         loginPage.navigate();
-        welcomepage = loginPage.loginWithValidCredentials('admin@ancon.io', 'admin');
+        welcomepage = loginPage.loginWithValidCredentials('nalinda@calcey.com', 'User@123');
         dashboardPage = welcomepage.selectATenant();
     });
 
@@ -30,5 +30,10 @@ describe('Dashboard page', () => {
     it('should navigate to tax page', () => {
         const taxPage = dashboardPage.clickAccountingButton();
         expect(taxPage.title).to.equal('Accounting');
+    });
+
+    it('should navigate to products page', () => {
+        const productPage = dashboardPage.clickAccountingButton();
+        expect(productPage.title).to.equal('Products');
     });
 });

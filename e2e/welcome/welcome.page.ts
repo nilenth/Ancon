@@ -1,12 +1,12 @@
 import BasePage from '../BasePage';
 import { Client, Element, RawResult } from 'webdriverio';
-import { DashboardPage } from '../dasboard/dashboard.page';
+import { DashboardPage } from '../dashboard/dashboard.page';
 
 export class Welcomepage extends BasePage {
 
     private titleSelector = '//h2[contains(text(),"Welcome to your BackOffice")]';
-    private clickTenantDropDownSelector = '//div[@class="css-vj8t7z custom-select__control"]';
-    private selectFirstTenantSelector = '//*[@id="react-select-2-option-0"]';
+    private clickTenantDropDownSelector = '//div[@class="custom-select__control css-yk16xz-control"]';
+    private selectFirstTenantSelector = '//div[contains(text(),"T Avenue")]';
     private continueButtonSeletor = '/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[2]/form[1]/div[2]/button[1]';
 
     get title(): string {

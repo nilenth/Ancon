@@ -19,12 +19,12 @@ describe('Login page', () => {
     });
 
     it('Invalid credentials should show error messages', () => {
-        loginPage.loginWithInvalidCredentials('admin@ancon.io', 'invalid-password');
+        loginPage.loginWithInvalidCredentials('nalinda@calcey.com', 'invalid-password');
         expect(loginPage.error).to.be.equal('Invalid username or password');
     });
 
     it('Providing a valid Epost and not providing password should show error messages', () => {
-        loginPage.loginWithInvalidCredentials('admin@ancon.io', '');
+        loginPage.loginWithInvalidCredentials('nalinda@calcey.com', '');
         expect(loginPage.error).to.be.equal('The Lösenord field is required.');
     });
 
@@ -34,7 +34,7 @@ describe('Login page', () => {
     });
 
     it('given valid credentials should take to welcome page', () => {
-        welcomePage = loginPage.loginWithValidCredentials('admin@ancon.io', 'admin');
+        welcomePage = loginPage.loginWithValidCredentials('nalinda@calcey.com', 'User@123');
         expect(welcomePage.title).to.be.equal('Welcome to your BackOffice');
     });
 });

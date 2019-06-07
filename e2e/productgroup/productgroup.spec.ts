@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { DashboardPage } from '../dasboard/dashboard.page';
+import { DashboardPage } from '../dashboard/dashboard.page';
 import { LoginPage } from '../login/login.page';
 import { Welcomepage } from '../welcome/welcome.page';
 import { TaxPage } from '../tax/tax.page';
@@ -21,7 +21,7 @@ describe('Product Group Page', () => {
     beforeAll(() => {
         const loginPage: LoginPage = new LoginPage();
         loginPage.navigate();
-        welcomepage = loginPage.loginWithValidCredentials('admin@ancon.io', 'admin');
+        welcomepage = loginPage.loginWithValidCredentials('nalinda@calcey.com', 'User@123');
         dashboardPage = welcomepage.selectATenant();
         taxPage = dashboardPage.clickAccountingButton();
         productGroupPage = taxPage.clickProductGroupTab();
