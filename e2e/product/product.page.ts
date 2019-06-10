@@ -2,6 +2,7 @@ import BasePage from '../BasePage';
 import { Client, Element, RawResult } from 'webdriverio';
 import { IngredientPage } from '../ingredient/ingredient.page';
 import { AddOnPage } from '../addOn/addOn.page';
+import { ModifierPage } from '../modifier/modifier.page';
 
 export class ProductPage extends BasePage {
     private titleSelector = '//h1[contains(text(),"Products")]';
@@ -235,6 +236,11 @@ export class ProductPage extends BasePage {
     public clickAddOnTab(): AddOnPage {
         this.clickAddOn.click();
         return new AddOnPage();
+    }
+
+    public clickModifierTab(): ModifierPage {
+        this.clickAddOn.click();
+        return new ModifierPage();
     }
 
 }
