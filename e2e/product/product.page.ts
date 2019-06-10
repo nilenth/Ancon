@@ -1,6 +1,7 @@
 import BasePage from '../BasePage';
 import { Client, Element, RawResult } from 'webdriverio';
-import { ProductGroupPage } from '../productgroup/productgroup.page';
+import { IngredientPage } from '../ingredient/ingredient.page';
+import { AddOnPage } from '../addOn/addOn.page';
 
 export class ProductPage extends BasePage {
     private titleSelector = '//h1[contains(text(),"Products")]';
@@ -20,7 +21,7 @@ export class ProductPage extends BasePage {
     private firstRowWithValue = '//tbody[1]//tr[1]//td[contains(text(),"Tang")]';
     private firstRowValueSelector = '//tbody[1]//tr[1]//td[4]';
     private secondRowValueSelector = '//tbody[2]//tr[1]//td[4]';
-    private selectEditSelector = '//table[1]/thead[1]/tr[1]/th[3]/div[1]/button[1]/i[1]';
+    private selectEditSelector = '//tbody[1]//tr[1]//td[8]//button[1]//div[1]//i[1]';
     private titleEditProductSelector = '//h1[@class="PageHeader_lgWidthMobile__2M7Ni"]';
     private selectCheckBoxSelector = '//tbody[1]//tr[1]//span[@class="CheckboxLabel_checkmark__3G56x"]';
     private selectDeleteSelector = '//table[1]/thead[1]/tr[1]/th[3]/div[1]/button[2]/i[1]';
@@ -28,6 +29,8 @@ export class ProductPage extends BasePage {
     private searchFieldSelector = "//input[contains(@placeholder,'Search Products')]";
     private searchButtonSelector = "//div[@class='AutoComplete_search-button__1Hwhf']";
     private clearAllSelector = "//button[contains(@class,'btn btn-secondary btn-xs')]";
+    private clickIngredientSelector = "//a[contains(text(),'Ingredients')]";
+    private clickAddOnSelector = "//a[contains(text(),'Add-on Groups')]";
 
     get title(): string {
         $(this.titleSelector).waitForVisible();
@@ -111,7 +114,7 @@ export class ProductPage extends BasePage {
         return $(this.priceSelector);
     }
 
-    get firstRowValue() : string {
+    get firstRowValue(): string {
         browser.waitForVisible(this.firstRowWithValue);
         $(this.firstRowValueSelector).waitForVisible();
         return $(this.firstRowValueSelector).getText();
@@ -122,7 +125,7 @@ export class ProductPage extends BasePage {
         return $(this.titleEditProductSelector).getText();
     }
 
-    get secondRowValue() : string {
+    get secondRowValue(): string {
         $(this.secondRowValueSelector).waitForVisible();
         return $(this.secondRowValueSelector).getText();
     }
@@ -137,6 +140,16 @@ export class ProductPage extends BasePage {
         return $(this.clearAllSelector).click();
     }
 
+    get clickIngredient() {
+        $(this.clickIngredientSelector).waitForVisible();
+        return browser.$(this.clickIngredientSelector);
+    }
+
+    get clickAddOn() {
+        $(this.clickAddOnSelector).waitForVisible();
+        return browser.$(this.clickAddOnSelector);
+    }
+
     public clickCreateNewButton(): void {
         this.selectCreateNewButton;
     }
@@ -146,7 +159,7 @@ export class ProductPage extends BasePage {
         this.clickEditButton;
     }
 
-    public clickSaveNewButton(): void {
+    public clickSaveButton(): void {
         this.selectSaveButton;
     }
 
@@ -167,33 +180,44 @@ export class ProductPage extends BasePage {
         this.clickClearAll;
     }
 
-    public setProductName(productName : string): void {
+    public setProductName(productName: string): void {
         this.productName.setValue(productName);
     }
 
-    public setProductInfo(productInfo : string): void {
+    public setProductInfo(productInfo: string): void {
         this.productInfo.setValue(productInfo);
     }
 
-    public setPrice(price : string): void {
+    public setPrice(price: string): void {
         this.price.setValue(price);
     }
 
-    public setSearchTerm(searchTerm : string): void {
+    public setSearchTerm(searchTerm: string): void {
         this.searchTerm.setValue(searchTerm);
     }
 
-    public searchAProduct(searchField : string): void {
+    public setEditedProductName(updatedProductName: string): void {
+        this.productName.setValue(updatedProductName);
+    }
+
+    public searchAProduct(searchField: string): void {
         this.setSearchTerm(searchField);
         this.clickSearchButton();
     }
 
-    public createAProduct(productName : string, productInfo : string, price : string): void {
+    public createAProduct(productName: string, productInfo: string, price: string): void {
         this.setProductName(productName);
         this.selectProductGroup();
         this.setProductInfo(productInfo);
         this.setPrice(price);
-        this.clickSaveNewButton();
+        this.clickSaveButton();
+    }
+
+    public editProduct(updatedProductName: string, updatedProductInfo: string, updatedPrice: string): void {
+        this.setEditedProductName(updatedProductName);
+        this.setProductInfo(updatedProductInfo);
+        this.setPrice(updatedPrice);
+        this.clickSaveButton();
     }
 
     public deleteProduct(): void {
@@ -201,6 +225,16 @@ export class ProductPage extends BasePage {
         this.clickDeleteButton;
         this.clickDeleteConfirmation;
         browser.pause(2000);
+    }
+
+    public clickIngredientTab(): IngredientPage {
+        this.clickIngredient.click();
+        return new IngredientPage();
+    }
+
+    public clickAddOnTab(): AddOnPage {
+        this.clickAddOn.click();
+        return new AddOnPage();
     }
 
 }
