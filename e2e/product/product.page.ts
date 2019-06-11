@@ -32,6 +32,7 @@ export class ProductPage extends BasePage {
     private clearAllSelector = "//button[contains(@class,'btn btn-secondary btn-xs')]";
     private clickIngredientSelector = "//a[contains(text(),'Ingredients')]";
     private clickAddOnSelector = "//a[contains(text(),'Add-on Groups')]";
+    private clickModifierSelector = "//a[contains(text(),'Modifiers')]";
 
     get title(): string {
         $(this.titleSelector).waitForVisible();
@@ -151,6 +152,11 @@ export class ProductPage extends BasePage {
         return browser.$(this.clickAddOnSelector);
     }
 
+    get clickModifier() {
+        $(this.clickModifierSelector).waitForVisible();
+        return browser.$(this.clickModifierSelector);
+    }
+
     public clickCreateNewButton(): void {
         this.selectCreateNewButton;
     }
@@ -239,7 +245,7 @@ export class ProductPage extends BasePage {
     }
 
     public clickModifierTab(): ModifierPage {
-        this.clickAddOn.click();
+        this.clickModifier.click();
         return new ModifierPage();
     }
 

@@ -12,7 +12,7 @@ describe('modifier page', () => {
     let productPage: ProductPage;
     let modifierPage: ModifierPage;
     const currentTimeVar = new Date().getTime().toString();
-    const modifierName = `Cheese ${currentTimeVar}`;
+    const modifierName = `Vitamin B ${currentTimeVar}`;
     const updatedModifierName = `${modifierName} ${'Updated'}`;
 
     afterEach((done) => {
@@ -30,37 +30,37 @@ describe('modifier page', () => {
         modifierPage = productPage.clickModifierTab();
     });
 
-    it('should open create an Modifier page', () => {
+    it('should open create a Modifier page', () => {
         modifierPage.clickCreateNewModifierButton();
-        expect(modifierPage.titleCreateAnModifier).to.equal('Create an Add-on Group');
+        expect(modifierPage.titleCreateAnModifier).to.equal('Create a Modifier');
     });
 
     it('should show mandatory validation', () => {
         modifierPage.clickSaveButton();
-        expect(modifierPage.emptyModifierNameErrorMessage).to.equal('Add-on Group Title : Required');
+        expect(modifierPage.emptyModifierNameErrorMessage).to.equal('Modifier Name : Required');
     });
 
-    it('should create an Modifier', () => {
-        modifierPage.createAnModifier(modifierName);
+    it('should create a Modifier', () => {
+        modifierPage.createAModifier(modifierName);
         expect(modifierPage.firstRowValue).to.equal(modifierName);
     });
 
     it('should navigate to edit modifier page', () => {
         modifierPage.clickEditModifierButton();
-        expect(modifierPage.titleEditClient).to.equal('Edit an Add-on Group');
+        expect(modifierPage.titleEditClient).to.equal('Edit a Modifier');
     });
 
-    it('should edit an modifier', () => {
+    it('should edit a modifier', () => {
         modifierPage.editModifier(updatedModifierName);
         expect(modifierPage.firstRowValue).to.equal(updatedModifierName);
     });
 
-    it('should search an modifier', () => {
-        modifierPage.searchAnModifier(updatedModifierName);
+    it('should search a modifier', () => {
+        modifierPage.searchAModifier(updatedModifierName);
         expect(modifierPage.firstRowValue).to.equal(updatedModifierName);
     });
 
-    it('should delete an modifier', () => {
+    it('should delete a modifier', () => {
         modifierPage.removeFilter();
         const secondRowValueName = modifierPage.secondRowValue;
         modifierPage.deleteModifier();

@@ -6,7 +6,8 @@ export class ModifierPage extends BasePage {
     private titleSelector = '//h1[contains(text(),"Products")]';
     private selectCreateNewSelector = "//button[@class='btn btn-primary create']";
     private titleCreateNewModifierSelector = "//h1[@class='PageHeader_lgWidthMobile__2M7Ni']";
-    private saveButtonSelector = "//button[text()='Save']";
+    private saveButtonSelector = "//div[contains(@class,'footer-inner')]//button[2]";
+    private toggleButtonSelector = "//div//div//fieldset[contains(@class,'section-fieldset')]//div[contains(@class,'btn-group')]//button[1]";
     private emptyModifierNameErrorSelector = "//label[@class='control-label error-label']";
     private modifierNameSelector = "//input[@name='name']";
     private firstRowValueSelector = '//td[@class="truncate-td"]';
@@ -15,9 +16,9 @@ export class ModifierPage extends BasePage {
     private selectCheckBoxSelector = '//tbody[1]//tr[1]//td[2]//label[1]//span';
     private titleEditProductSelector = '//div[contains(@class,"App")]//h1';
     private searchButtonSelector = '//i[contains(@class,"a_icon-search")]';
-    private searchFieldSelector = '//input[contains(@placeholder,"Search Add-on Groups")]';
+    private searchFieldSelector = '//input[contains(@placeholder,"Search Modifiers")]';
     private clearAllSelector = "//button[@class='btn btn-secondary btn-xs']";
-    private selectDeleteSelector = '//tbody[1]//tr[1]//td[5]//button[2]//div[1]';
+    private selectDeleteSelector = '//table[contains(@class,"table")]//tbody[1]//tr[1]//td[5]//button[2]//div[1]//i[1]';
     private selectDeleteConfirmationSelector = "//button[@class='btn btn-primary']";
     private secondRowValueSelector = '//tbody[2]//tr[1]//td[4]';
 
@@ -39,7 +40,13 @@ export class ModifierPage extends BasePage {
     get selectSaveButton() {
         $(this.saveButtonSelector).waitForVisible();
         $(this.saveButtonSelector).waitForEnabled();
+        browser.pause(2000);
         return $(this.saveButtonSelector).click();
+    }
+
+    get selectToggleButton() {
+        $(this.toggleButtonSelector).waitForVisible();
+        return $(this.toggleButtonSelector).click();
     }
 
     get emptyModifierNameErrorMessage(): string {
@@ -113,6 +120,10 @@ export class ModifierPage extends BasePage {
         this.selectSaveButton;
     }
 
+    public turnToggleOn(): void {
+        this.selectToggleButton;
+    }
+
     public clickEditButton(): void {
         this.selectEditButton;
     }
@@ -137,8 +148,9 @@ export class ModifierPage extends BasePage {
         this.clickClearAll;
     }
 
-    public createAnModifier(modifierName: string): void {
+    public createAModifier(modifierName: string): void {
         this.setModifierName(modifierName);
+        this.turnToggleOn();
         this.clickSaveButton();
     }
 
@@ -152,7 +164,7 @@ export class ModifierPage extends BasePage {
         this.clickSaveButton();
     }
 
-    public searchAnModifier(searchField: string): void {
+    public searchAModifier(searchField: string): void {
         this.setSearchTerm(searchField);
         this.clickSearchButton();
     }
