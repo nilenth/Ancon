@@ -3,13 +3,8 @@ import { Client, Element, RawResult } from 'webdriverio';
 
 export class IngredientPage extends BasePage {
 
-    private titleSelector = '//h1[contains(text(),"Products")]';
+    private titleSelector = '//div[@class="tab-title"]/h1';
     private selectCreateNewSelector = "//button[@class='btn btn-primary create']";
-    private titleCreateNewIngredientSelector = "//h1[@class='PageHeader_lgWidthMobile__2M7Ni']";
-    private saveButtonSelector = "//button[text()='Save']";
-    private emptyIngredientNameErrorSelector = "//label[@class='control-label error-label']";
-    private ingredientNameSelector = "//input[@name='name']";
-    private priceSelector = '//input[@name="price"]';
     private firstRowValueSelector = '//td[@class="truncate-td"]';
     private firstRowWithValue = '//table[contains(@class,"table")]//tbody//tr[1]';
     private editButtonSelector = '//table[contains(@class,"table")]//tbody//tr[1]//button[1]';
@@ -22,41 +17,16 @@ export class IngredientPage extends BasePage {
     private selectDeleteSelector = '//tbody[1]//tr[1]//td[5]//button[2]//div[1]';
     private selectDeleteConfirmationSelector = "//button[@class='btn btn-primary']";
     private secondRowValueSelector = '//tbody[2]//tr[1]//td[4]';
+    private noOfRowsSelector = "//table[contains(@class,'table')]//tbody";
 
     get title(): string {
         $(this.titleSelector).waitForVisible();
         return $(this.titleSelector).getText();
     }
 
-    get titleCreateAnIngredient(): string {
-        $(this.titleCreateNewIngredientSelector).waitForVisible();
-        return $(this.titleCreateNewIngredientSelector).getText();
-    }
-
     get selectCreateNewButton() {
         $(this.selectCreateNewSelector).waitForVisible();
         return $(this.selectCreateNewSelector).click();
-    }
-
-    get selectSaveButton() {
-        $(this.saveButtonSelector).waitForVisible();
-        $(this.saveButtonSelector).waitForEnabled();
-        return $(this.saveButtonSelector).click();
-    }
-
-    get emptyIngredientNameErrorMessage(): string {
-        $(this.emptyIngredientNameErrorSelector).waitForVisible();
-        return $(this.emptyIngredientNameErrorSelector).getText();
-    }
-
-    get ingredientName() {
-        $(this.ingredientNameSelector).waitForVisible();
-        return $(this.ingredientNameSelector);
-    }
-
-    get price() {
-        $(this.priceSelector).waitForVisible();
-        return $(this.priceSelector);
     }
 
     get firstRowValue(): string {
@@ -112,32 +82,17 @@ export class IngredientPage extends BasePage {
         return $(this.secondRowValueSelector).getText();
     }
 
+    get noOfRows(): number {
+        $(this.noOfRowsSelector).waitForVisible();
+        return browser.elements(this.noOfRowsSelector).value.length;
+    }
+
     public clickCreateNewIngredientButton(): void {
         this.selectCreateNewButton;
     }
 
-    public clickSaveButton(): void {
-        this.selectSaveButton;
-    }
-
     public clickEditButton(): void {
         this.selectEditButton;
-    }
-
-    public setIngredientName(ingredientName: string): void {
-        this.ingredientName.setValue(ingredientName);
-    }
-
-    public setEditedIngredientName(updatedIngredientName: string): void {
-        this.ingredientName.setValue(updatedIngredientName);
-    }
-
-    public setPrice(price: string): void {
-        this.price.setValue(price);
-    }
-
-    public setEditedIngredientPrice(updatedPrice: string): void {
-        this.price.setValue(updatedPrice);
     }
 
     public setSearchTerm(searchTerm: string): void {
@@ -152,21 +107,9 @@ export class IngredientPage extends BasePage {
         this.clickClearAll;
     }
 
-    public createAnIngredient(ingredientName: string, price: string): void {
-        this.setIngredientName(ingredientName);
-        this.setPrice(price);
-        this.clickSaveButton();
-    }
-
     public clickEditIngredientButton() {
         this.clickFirstProductCheckBox;
         this.clickEditButton();
-    }
-
-    public editIngredient(updatedIngredientName: string, updatedPrice: string): void {
-        this.setEditedIngredientName(updatedIngredientName);
-        this.setEditedIngredientPrice(updatedPrice);
-        this.clickSaveButton();
     }
 
     public searchAnIngredient(searchField: string): void {

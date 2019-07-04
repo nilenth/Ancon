@@ -3,12 +3,8 @@ import { Client, Element, RawResult } from 'webdriverio';
 
 export class AddOnPage extends BasePage {
 
-    private titleSelector = '//h1[contains(text(),"Products")]';
+    private titleSelector = '//div[@class="tab-title"]/h1';
     private selectCreateNewSelector = "//button[@class='btn btn-primary create']";
-    private titleCreateNewAddOnSelector = "//h1[@class='PageHeader_lgWidthMobile__2M7Ni']";
-    private saveButtonSelector = "//button[text()='Save']";
-    private emptyAddOnNameErrorSelector = "//label[@class='control-label error-label']";
-    private addOnNameSelector = "//input[@name='name']";
     private firstRowValueSelector = '//td[@class="truncate-td"]';
     private firstRowWithValue = '//table[contains(@class,"table")]//tbody//tr[1]';
     private editButtonSelector = '//table[contains(@class,"table")]//tbody//tr[1]//button[1]';
@@ -20,15 +16,11 @@ export class AddOnPage extends BasePage {
     private selectDeleteSelector = '//tbody[1]//tr[1]//td[5]//button[2]//div[1]';
     private selectDeleteConfirmationSelector = "//button[@class='btn btn-primary']";
     private secondRowValueSelector = '//tbody[2]//tr[1]//td[4]';
+    private noOfRowsSelector = "//table[contains(@class,'table')]//tbody";
 
     get title(): string {
         $(this.titleSelector).waitForVisible();
         return $(this.titleSelector).getText();
-    }
-
-    get titleCreateAnAddOn(): string {
-        $(this.titleCreateNewAddOnSelector).waitForVisible();
-        return $(this.titleCreateNewAddOnSelector).getText();
     }
 
     get selectCreateNewButton() {
@@ -36,23 +28,7 @@ export class AddOnPage extends BasePage {
         return $(this.selectCreateNewSelector).click();
     }
 
-    get selectSaveButton() {
-        $(this.saveButtonSelector).waitForVisible();
-        $(this.saveButtonSelector).waitForEnabled();
-        return $(this.saveButtonSelector).click();
-    }
-
-    get emptyAddOnNameErrorMessage(): string {
-        $(this.emptyAddOnNameErrorSelector).waitForVisible();
-        return $(this.emptyAddOnNameErrorSelector).getText();
-    }
-
-    get addOnName() {
-        $(this.addOnNameSelector).waitForVisible();
-        return $(this.addOnNameSelector);
-    }
-
-    get firstRowValue() : string {
+    get firstRowValue(): string {
         browser.waitForVisible(this.firstRowWithValue);
         $(this.firstRowValueSelector).waitForVisible();
         return $(this.firstRowValueSelector).getText();
@@ -100,32 +76,25 @@ export class AddOnPage extends BasePage {
         return $(this.selectDeleteConfirmationSelector).click();
     }
 
-    get secondRowValue() : string {
+    get secondRowValue(): string {
         $(this.secondRowValueSelector).waitForVisible();
         return $(this.secondRowValueSelector).getText();
+    }
+
+    get noOfRows(): number {
+        $(this.noOfRowsSelector).waitForVisible();
+        return browser.elements(this.noOfRowsSelector).value.length;
     }
 
     public clickCreateNewAddOnButton(): void {
         this.selectCreateNewButton;
     }
 
-    public clickSaveButton(): void {
-        this.selectSaveButton;
-    }
-
     public clickEditButton(): void {
         this.selectEditButton;
     }
 
-    public setAddOnName(addOnName : string): void {
-        this.addOnName.setValue(addOnName);
-    }
-
-    public setEditedAddOnName(updatedAddOnName : string): void {
-        this.addOnName.setValue(updatedAddOnName);
-    }
-
-    public setSearchTerm(searchTerm : string): void {
+    public setSearchTerm(searchTerm: string): void {
         this.searchTerm.setValue(searchTerm);
     }
 
@@ -137,22 +106,12 @@ export class AddOnPage extends BasePage {
         this.clickClearAll;
     }
 
-    public createAnAddOn(addOnName : string): void {
-        this.setAddOnName(addOnName);
-        this.clickSaveButton();
-    }
-
-    public clickEditAddOnButton() {
+    public clickEditAddOnGroupButton() {
         this.clickFirstProductCheckBox;
         this.clickEditButton();
     }
 
-    public editAddOn(updatedAddOnName : string): void {
-        this.setEditedAddOnName(updatedAddOnName);
-        this.clickSaveButton();
-    }
-
-    public searchAnAddOn(searchField : string): void {
+    public searchAnAddOn(searchField: string): void {
         this.setSearchTerm(searchField);
         this.clickSearchButton();
     }

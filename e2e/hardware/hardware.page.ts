@@ -54,7 +54,7 @@ export class HardwarePage extends BasePage {
         return $(this.clientNameSelector);
     }
 
-    get firstRawValue() : string {
+    get firstRawValue(): string {
         browser.waitForVisible(this.firstRawWithValue);
         $(this.firstRawValueSelector).waitForVisible();
         return $(this.firstRawValueSelector).getText();
@@ -65,7 +65,7 @@ export class HardwarePage extends BasePage {
         return $(this.toggleSelector).click();
     }
 
-    get connectionText() : string {
+    get connectionText(): string {
         $(this.connectionTextSelector).waitForVisible();
         return $(this.connectionTextSelector).getText();
     }
@@ -85,7 +85,7 @@ export class HardwarePage extends BasePage {
         return $(this.clickCustomPortRadioButtonSelector).click();
     }
 
-    get clickIPRadioButton()  {
+    get clickIPRadioButton() {
         $(this.ipAddressRadioButtonSelector).waitForVisible();
         return $(this.ipAddressRadioButtonSelector).click();
     }
@@ -128,11 +128,11 @@ export class HardwarePage extends BasePage {
         this.selectSaveButton;
     }
 
-    public setClientName(clientName : string): void {
+    public setClientName(clientName: string): void {
         this.clientName.setValue(clientName);
     }
 
-    public createAClientWithoutAPrinter(clientName : string): void {
+    public createAClientWithoutAPrinter(clientName: string): void {
         this.setClientName(clientName);
         this.clickSaveNewButton();
     }
@@ -141,7 +141,7 @@ export class HardwarePage extends BasePage {
         this.toggleOn;
     }
 
-    public setPortNumber(portNumber : string): void {
+    public setPortNumber(portNumber: string): void {
         this.portNumber.setValue(portNumber);
     }
 
@@ -157,7 +157,7 @@ export class HardwarePage extends BasePage {
         this.clickCustomPortRadioButton;
     }
 
-    public setIpAddress(ipAddress : string): void {
+    public setIpAddress(ipAddress: string): void {
         this.ipAddress.setValue(ipAddress);
     }
 
@@ -181,14 +181,14 @@ export class HardwarePage extends BasePage {
         this.clickFirstDatabit;
     }
 
-    public createAClientWithAPrinterAndAComPortAndSam(clientName : string, portNumber : string): void {
+    public createAClientWithAPrinterAndAComPortAndSam(clientName: string, portNumber: string): void {
         this.setClientName(clientName);
         this.setPortNumber(portNumber);
         this.selectSam4RadioButton();
         this.clickSaveNewButton();
     }
 
-    public createAClientWithAPrinterAndIPAndSam(clientName : string, ipAddress : string): void {
+    public createAClientWithAPrinterAndIPAndSam(clientName: string, ipAddress: string): void {
         this.setClientName(clientName);
         this.printerToggleActivate();
         this.selectIPRadioButton();
@@ -197,7 +197,7 @@ export class HardwarePage extends BasePage {
         this.clickSaveNewButton();
     }
 
-    public createAClientWithAPrinterAndIPAndCustomPort(clientName : string, ipAddress : string, port : string): void {
+    public createAClientWithAPrinterAndIPAndCustomPort(clientName: string, ipAddress: string, port: string): void {
         this.setClientName(clientName);
         this.printerToggleActivate();
         this.selectIPRadioButton();
@@ -207,7 +207,7 @@ export class HardwarePage extends BasePage {
         this.clickSaveNewButton();
     }
 
-    public createAClientWithAPrinterAndCustomPrinter(clientName : string, portNumber : string): void {
+    public createAClientWithAPrinterAndCustomPrinter(clientName: string, portNumber: string): void {
         this.setClientName(clientName);
         this.printerToggleActivate();
         this.setPortNumber(portNumber);

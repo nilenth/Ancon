@@ -3,12 +3,14 @@ import { DashboardPage } from '../dashboard/dashboard.page';
 import { LoginPage } from '../login/login.page';
 import { Welcomepage } from '../welcome/welcome.page';
 import { ProductPage } from '../product/product.page';
+import { ProductDetailPage } from '../product/productDetail.page';
 
 describe('Dashboard page', () => {
     let n = 0;
     let welcomepage: Welcomepage;
     let dashboardPage: DashboardPage;
     let productPage: ProductPage;
+    let productDetailPage: ProductDetailPage;
     const currentTimeVar = new Date().getTime().toString();
     const productName = `Tang ${currentTimeVar}`;
     const updatedProductName = `${productName} ${'Updated'}`;
@@ -18,12 +20,13 @@ describe('Dashboard page', () => {
     const updatedProductPrice = '25.25';
 
     afterEach((done) => {
-        const filename = './e2e/screenshots/Dashboard_'.concat(String(n), '.png');
+        const filename = './e2e/screenshots/Product_'.concat(String(n), '.png');
         browser.saveScreenshot(filename);
         n += 1;
     });
 
     beforeAll(() => {
+        productDetailPage  = new ProductDetailPage();
         const loginPage: LoginPage = new LoginPage();
         loginPage.navigate();
         welcomepage = loginPage.loginWithValidCredentials('nalinda@calcey.com', 'User@123');
@@ -31,29 +34,33 @@ describe('Dashboard page', () => {
         productPage = dashboardPage.clickProductButton();
     });
 
+    it('should have correct title', () => {
+        expect(productPage.title).to.be.equal('Products');
+    });
+
     it('should open create new product page', () => {
         productPage.clickCreateNewButton();
-        expect(productPage.titleCreateNewClient).to.equal('Create a Product');
+        expect(productDetailPage.titleCreateNewClient).to.equal('Create a Product');
     });
 
     it('should show mandatory validation', () => {
-        productPage.clickSaveButton();
-        expect(productPage.emptyProductNameErrorMessage).to.equal('Product Name : Required');
-        expect(productPage.emptyProductGroupErrorMessage).to.equal('Product Group : Required');
+        productDetailPage.clickSaveButton();
+        expect(productDetailPage.emptyProductNameErrorMessage).to.equal('Product Name : Required');
+        expect(productDetailPage.emptyProductGroupErrorMessage).to.equal('Product Group : Required');
     });
 
     it('should create a product', () => {
-        productPage.createAProduct(productName, productInfo, productPrice);
+        productDetailPage.createAProduct(productName, productInfo, productPrice);
         expect(productPage.firstRowValue).to.equal(productName);
     });
 
     it('should navigate to edit product page', () => {
         productPage.clickEditProductButton();
-        expect(productPage.titleEditClient).to.equal(productName);
+        expect(productDetailPage.titleEditClient).to.equal(productName);
     });
 
     it('should edit a product', () => {
-        productPage.editProduct(updatedProductName, updatedProductInfo, updatedProductPrice);
+        productDetailPage.editProduct(updatedProductName, updatedProductInfo, updatedProductPrice);
         expect(productPage.firstRowValue).to.equal(updatedProductName);
     });
 
@@ -64,9 +71,12 @@ describe('Dashboard page', () => {
 
     it('should delete a product', () => {
         productPage.removeFilter();
-        const secondRowValueName = productPage.secondRowValue;
-        productPage.deleteProduct();
-        expect(productPage.firstRowValue).to.equal(secondRowValueName);
+        if (productPage.noOfRows > 1) {
+            productPage.deleteProduct();
+            expect(productPage.firstRowValue).to.not.equal(updatedProductName);
+        } else {
+            productPage.noOfRows === 0;
+        }
     });
 
 });

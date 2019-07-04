@@ -4,6 +4,7 @@ import { LoginPage } from '../login/login.page';
 import { Welcomepage } from '../welcome/welcome.page';
 import { ProductPage } from '../product/product.page';
 import { IngredientPage } from '../ingredient/ingredient.page';
+import { IngredientDetailPage } from './ingredientDetail.page';
 
 describe('Ingredient page', () => {
     let n = 0;
@@ -11,6 +12,7 @@ describe('Ingredient page', () => {
     let dashboardPage: DashboardPage;
     let productPage: ProductPage;
     let ingredientPage: IngredientPage;
+    let ingredientDetailPage: IngredientDetailPage;
     const currentTimeVar = new Date().getTime().toString();
     const ingredientName = `Sugar ${currentTimeVar}`;
     const updatedIngredientName = `${ingredientName} ${'Updated'}`;
@@ -22,6 +24,7 @@ describe('Ingredient page', () => {
     });
 
     beforeAll(() => {
+        ingredientDetailPage  = new IngredientDetailPage();
         const loginPage: LoginPage = new LoginPage();
         loginPage.navigate();
         welcomepage = loginPage.loginWithValidCredentials('nalinda@calcey.com', 'User@123');
@@ -30,18 +33,22 @@ describe('Ingredient page', () => {
         ingredientPage = productPage.clickIngredientTab();
     });
 
+    it('should have correct title', () => {
+        expect(ingredientPage.title).to.be.equal('Ingredients');
+    });
+
     it('should open create an Ingredient page', () => {
         ingredientPage.clickCreateNewIngredientButton();
-        expect(ingredientPage.titleCreateAnIngredient).to.equal('Create an Ingredient');
+        expect(ingredientDetailPage.titleCreateAnIngredient).to.equal('Create an Ingredient');
     });
 
     it('should show mandatory validation', () => {
-        ingredientPage.clickSaveButton();
-        expect(ingredientPage.emptyIngredientNameErrorMessage).to.equal('Ingredient Name : Required');
+        ingredientDetailPage.clickSaveButton();
+        expect(ingredientDetailPage.emptyIngredientNameErrorMessage).to.equal('Ingredient Name : Required');
     });
 
     it('should create an Ingredient', () => {
-        ingredientPage.createAnIngredient(ingredientName, '25.00');
+        ingredientDetailPage.createAnIngredient(ingredientName, '25.00');
         expect(ingredientPage.firstRowValue).to.equal(ingredientName);
     });
 
@@ -52,7 +59,7 @@ describe('Ingredient page', () => {
 
     it('should edit an ingredient', () => {
 
-        ingredientPage.editIngredient(updatedIngredientName, '25.25');
+        ingredientDetailPage.editIngredient(updatedIngredientName, '25.25');
         expect(ingredientPage.firstRowValue).to.equal(updatedIngredientName);
     });
 
@@ -63,9 +70,12 @@ describe('Ingredient page', () => {
 
     it('should delete an ingredient', () => {
         ingredientPage.removeFilter();
-        const secondRowValueName = ingredientPage.secondRowValue;
-        ingredientPage.deleteIngredient();
-        expect(ingredientPage.firstRowValue).to.equal(secondRowValueName);
+        if (ingredientPage.noOfRows > 1) {
+            ingredientPage.deleteIngredient();
+            expect(ingredientPage.firstRowValue).to.not.equal(updatedIngredientName);
+        } else {
+            ingredientPage.noOfRows === 0;
+        }
     });
 
 });

@@ -3,6 +3,7 @@ import { Client, Element, RawResult } from 'webdriverio';
 import { HardwarePage } from '../hardware/hardware.page';
 import { TaxPage } from '../tax/tax.page';
 import { ProductPage } from '../product/product.page';
+import { SettingPage } from '../setting/setting.page';
 
 export class DashboardPage extends BasePage {
 
@@ -10,6 +11,7 @@ export class DashboardPage extends BasePage {
     private clickHardwareSelector = '//span[contains(text(),"Hardware")]';
     private clickAccountingSelector = '//span[contains(text(),"Accounting")]';
     private clickProductSelector = '//span[contains(text(),"Products")]';
+    private clickSettingSelector = '//span[contains(text(),"Settings")]';
 
     get title(): string {
         $(this.titleSelector).waitForVisible();
@@ -31,6 +33,11 @@ export class DashboardPage extends BasePage {
         return browser.$(this.clickProductSelector);
     }
 
+    get clickSetting() {
+        $(this.clickSettingSelector).waitForVisible();
+        return browser.$(this.clickSettingSelector);
+    }
+
     public clickHardwareButton(): HardwarePage {
         this.clickHardware.click();
         return new HardwarePage();
@@ -44,5 +51,10 @@ export class DashboardPage extends BasePage {
     public clickProductButton(): ProductPage {
         this.clickProduct.click();
         return new ProductPage();
+    }
+
+    public clickSettingButton(): SettingPage {
+        this.clickSetting.click();
+        return new SettingPage();
     }
 }

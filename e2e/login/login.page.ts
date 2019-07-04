@@ -4,7 +4,7 @@ import { Welcomepage } from '../welcome/welcome.page';
 
 export class LoginPage extends BasePage {
 
-    private emailSelector = '//input[@placeholder="E-post"]';
+    private emailSelector = '//input[@id="Username"]';
     private passwordSelector = '//input[@id="password"]';
     private loginButtonSelector = '//button[@value="login"]';
     private errorSelector = '//div[@class="danger validation-summary-errors"]';
