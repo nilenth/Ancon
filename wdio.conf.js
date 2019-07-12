@@ -14,7 +14,8 @@ exports.config = {
         'e2e/**/ingredient.spec.ts',
         'e2e/**/addOn.spec.ts',
         'e2e/**/modifier.spec.ts',
-        'e2e/**/setting.spec.ts'
+        'e2e/**/setting.spec.ts',
+        'e2e/**/menuGroup.spec.ts'
     ],
     // Patterns to exclude.
     exclude: [

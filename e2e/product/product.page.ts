@@ -4,6 +4,7 @@ import { IngredientPage } from '../ingredient/ingredient.page';
 import { AddOnPage } from '../addOn/addOn.page';
 import { ModifierPage } from '../modifier/modifier.page';
 import { ProductDetailPage } from './productDetail.page';
+import { MenuGroupPage } from '../menuGroup/menuGroup.page';
 
 export class ProductPage extends BasePage {
     private titleSelector = '//div[@class="tab-title"]/h1';
@@ -20,6 +21,7 @@ export class ProductPage extends BasePage {
     private searchButtonSelector = "//div[@class='AutoComplete_search-button__1Hwhf']";
     private clearAllSelector = "//button[@class='btn btn-secondary btn-xs']";
     private clickIngredientSelector = "//a[contains(text(),'Ingredients')]";
+    private clickMenuGroupSelector = "//a[contains(text(),'Menu Groups')]";
     private clickAddOnSelector = "//a[contains(text(),'Add-on Groups')]";
     private clickModifierSelector = "//a[contains(text(),'Modifiers')]";
     private noOfRowsSelector = "//table[contains(@class,'table')]//tbody";
@@ -86,6 +88,11 @@ export class ProductPage extends BasePage {
         return browser.$(this.clickIngredientSelector);
     }
 
+    get clickMenuGroup() {
+        $(this.clickMenuGroupSelector).waitForVisible();
+        return browser.$(this.clickMenuGroupSelector);
+    }
+
     get clickAddOn() {
         $(this.clickAddOnSelector).waitForVisible();
         return browser.$(this.clickAddOnSelector);
@@ -140,6 +147,11 @@ export class ProductPage extends BasePage {
     public clickIngredientTab(): IngredientPage {
         this.clickIngredient.click();
         return new IngredientPage();
+    }
+
+    public clickMenuGroupTab(): MenuGroupPage {
+        this.clickMenuGroup.click();
+        return new MenuGroupPage();
     }
 
     public clickAddOnTab(): AddOnPage {
