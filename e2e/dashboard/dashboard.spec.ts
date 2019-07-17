@@ -18,7 +18,7 @@ describe('Dashboard page', () => {
     beforeAll(() => {
         const loginPage: LoginPage = new LoginPage();
         loginPage.navigate();
-        welcomepage = loginPage.loginWithValidCredentials('nalinda@calcey.com', 'User@123');
+        welcomepage = loginPage.loginWithValidCredentials('admin@ancon.io', 'admin');
         dashboardPage = welcomepage.selectATenant();
     });
 

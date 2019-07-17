@@ -27,7 +27,7 @@ describe('modifier page', () => {
         modifierDetailPage  = new ModifierDetailPage();
         const loginPage: LoginPage = new LoginPage();
         loginPage.navigate();
-        welcomepage = loginPage.loginWithValidCredentials('nalinda@calcey.com', 'User@123');
+        welcomepage = loginPage.loginWithValidCredentials('admin@ancon.io', 'admin');
         dashboardPage = welcomepage.selectATenant();
         productPage = dashboardPage.clickProductButton();
         modifierPage = productPage.clickModifierTab();

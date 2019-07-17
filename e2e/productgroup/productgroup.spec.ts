@@ -21,7 +21,7 @@ describe('Product Group Page', () => {
     beforeAll(() => {
         const loginPage: LoginPage = new LoginPage();
         loginPage.navigate();
-        welcomepage = loginPage.loginWithValidCredentials('nalinda@calcey.com', 'User@123');
+        welcomepage = loginPage.loginWithValidCredentials('admin@ancon.io', 'admin');
         dashboardPage = welcomepage.selectATenant();
         taxPage = dashboardPage.clickAccountingButton();
         productGroupPage = taxPage.clickProductGroupTab();

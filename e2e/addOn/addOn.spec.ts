@@ -29,7 +29,7 @@ describe('addOn page', () => {
         addOnDetailPage  = new AddOnDetailPage();
         const loginPage: LoginPage = new LoginPage();
         loginPage.navigate();
-        welcomepage = loginPage.loginWithValidCredentials('nalinda@calcey.com', 'User@123');
+        welcomepage = loginPage.loginWithValidCredentials('admin@ancon.io', 'admin');
         dashboardPage = welcomepage.selectATenant();
         productPage = dashboardPage.clickProductButton();
         addOnPage = productPage.clickAddOnTab();

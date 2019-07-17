@@ -5,7 +5,7 @@ import { Welcomepage } from '../welcome/welcome.page';
 import { ProductPage } from '../product/product.page';
 import { ProductDetailPage } from '../product/productDetail.page';
 
-describe('Dashboard page', () => {
+describe('Product page', () => {
     let n = 0;
     let welcomepage: Welcomepage;
     let dashboardPage: DashboardPage;
@@ -29,7 +29,7 @@ describe('Dashboard page', () => {
         productDetailPage  = new ProductDetailPage();
         const loginPage: LoginPage = new LoginPage();
         loginPage.navigate();
-        welcomepage = loginPage.loginWithValidCredentials('nalinda@calcey.com', 'User@123');
+        welcomepage = loginPage.loginWithValidCredentials('admin@ancon.io', 'admin');
         dashboardPage = welcomepage.selectATenant();
         productPage = dashboardPage.clickProductButton();
     });
