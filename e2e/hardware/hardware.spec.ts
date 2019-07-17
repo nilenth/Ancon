@@ -9,6 +9,8 @@ describe('Dashboard page', () => {
     let welcomepage: Welcomepage;
     let dashboardPage: DashboardPage;
     let hardwarePage: HardwarePage;
+    const currentTimeVar = new Date().getTime().toString();
+    const printerName = `Printer ${currentTimeVar}`;
 
     afterEach((done) => {
         const filename = './e2e/screenshots/Dashboard_'.concat(String(n), '.png');
@@ -35,9 +37,8 @@ describe('Dashboard page', () => {
     });
 
     it('should create a client without connecting the printer', () => {
-        const value = 'XXX';
-        hardwarePage.createAClientWithoutAPrinter(value);
-        expect(hardwarePage.firstRawValue).to.equal(value);
+        hardwarePage.createAClientWithoutAPrinter(printerName);
+        expect(hardwarePage.firstRowValue).to.equal(printerName);
     });
 
     it('should be able to activate printer toggle', () => {
@@ -47,29 +48,25 @@ describe('Dashboard page', () => {
     });
 
     it('should be able to activate printer toggle and add a com port and Sam4s Giant100 port', () => {
-        const value = 'XXX';
-        hardwarePage.createAClientWithAPrinterAndAComPortAndSam(value, '123');
-        expect(hardwarePage.firstRawValue).to.equal(value);
+        hardwarePage.createAClientWithAPrinterAndAComPortAndSam(printerName, '123');
+        expect(hardwarePage.firstRowValue).to.equal(printerName);
     });
 
     it('should be able to activate printer toggle and add an IP and Sam4s Giant100 port', () => {
-        const value = 'XXX';
         hardwarePage.clickCreateNewButton();
-        hardwarePage.createAClientWithAPrinterAndIPAndSam(value, '192.168.1.1');
-        expect(hardwarePage.firstRawValue).to.equal(value);
+        hardwarePage.createAClientWithAPrinterAndIPAndSam(printerName, '192.168.1.1');
+        expect(hardwarePage.firstRowValue).to.equal(printerName);
     });
 
     it('should be able to activate printer toggle and add an IP and custom port settings', () => {
-        const value = 'XXX';
         hardwarePage.clickCreateNewButton();
-        hardwarePage.createAClientWithAPrinterAndIPAndCustomPort(value, '192.168.1.2', '111');
-        expect(hardwarePage.firstRawValue).to.equal(value);
+        hardwarePage.createAClientWithAPrinterAndIPAndCustomPort(printerName, '192.168.1.2', '111');
+        expect(hardwarePage.firstRowValue).to.equal(printerName);
     });
 
     it('should be able to activate printer toggle and select custom printer ', () => {
-        const value = 'XXX';
         hardwarePage.clickCreateNewButton();
-        hardwarePage.createAClientWithAPrinterAndCustomPrinter(value, '112');
-        expect(hardwarePage.firstRawValue).to.equal(value);
+        hardwarePage.createAClientWithAPrinterAndCustomPrinter(printerName, '112');
+        expect(hardwarePage.firstRowValue).to.equal(printerName);
     });
 });

@@ -4,16 +4,16 @@ import { Client, Element, RawResult } from 'webdriverio';
 export class HardwarePage extends BasePage {
 
     private titleSelector = '//h1[contains(text(),"Client / Hardware")]';
-    private selectCreateNewSelector = '//button[@class="btn btn-primary btn-right"]';
+    private selectCreateNewSelector = '//button[@class="btn btn-primary btn-right create"]';
     private titleCreateNewClientSelector = '//h5[@class="modal-title"]';
     private saveButtonSelector = '//button[@type="submit"]';
     private emptyNameErrorSelector = '//label[@class="control-label error-label"]';
     private clientNameSelector = '//input[@name="name"]';
-    private firstRawValueSelector = '//tbody[1]//tr[1]//td[4]';
+    private firstRowValueSelector = '//tbody[1]//tr[1]//td[4]';
     private toggleSelector = '//div[contains(@class,"modal-body")]//button[1]';
     private connectionTextSelector = '//strong[contains(text(),"Connection")]';
     private portNumberSelector = '//input[@name="comPort"]';
-    private clickSam4sRadioButtonSelector = '//div[@class="flex-column row"]//div[1]//label[1]//span[1]';
+    private clickSam4sRadioButtonSelector = '//body[@class="modal-open"]//div[@class="row"]//div[@class="row"]//div[1]//label[1]//span[1]';
     private ipAddressRadioButtonSelector = '//p[contains(text(),"IP")]/ancestor::label';
     private ipAddressSelector = '//input[@name="host"]';
     private clickCustomPortRadioButtonSelector = '//p[contains(text(),"Custom Port Settings")]';
@@ -21,8 +21,8 @@ export class HardwarePage extends BasePage {
     private baudRateSelector = '//strong[contains(text(),"Serial Baud Rate *")]/ancestor::div[1]/div';
     private clickFirstBaudRateSelector = '//*[contains(text(),"75")]';
     private serialDatabitSelector = '//strong[contains(text(),"Serial Databits *")]/ancestor::div[1]/div';
-    private clickFirstDatabitSelector = '//*[contains(text(),"4")]';
-    private firstRawWithValue = '//tbody[1]//tr[1]//td[contains(text(),"XXX")]';
+    private clickFirstDatabitSelector = '//div[@class="custom-select__option custom-select__option--is-focused css-1n7v3ny-option"]';
+    private firstRowWithValue = '//table[contains(@class,"table")]//td[4]';
 
     get title(): string {
         $(this.titleSelector).waitForVisible();
@@ -54,10 +54,10 @@ export class HardwarePage extends BasePage {
         return $(this.clientNameSelector);
     }
 
-    get firstRawValue(): string {
-        browser.waitForVisible(this.firstRawWithValue);
-        $(this.firstRawValueSelector).waitForVisible();
-        return $(this.firstRawValueSelector).getText();
+    get firstRowValue(): string {
+        browser.waitForVisible(this.firstRowWithValue);
+        $(this.firstRowValueSelector).waitForVisible();
+        return $(this.firstRowValueSelector).getText();
     }
 
     get toggleOn() {
