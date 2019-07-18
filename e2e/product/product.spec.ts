@@ -26,7 +26,7 @@ describe('Product page', () => {
     });
 
     beforeAll(() => {
-        productDetailPage  = new ProductDetailPage();
+        productDetailPage = new ProductDetailPage();
         const loginPage: LoginPage = new LoginPage();
         loginPage.navigate();
         welcomepage = loginPage.loginWithValidCredentials('admin@ancon.io', 'admin');

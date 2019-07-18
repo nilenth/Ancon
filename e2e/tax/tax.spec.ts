@@ -32,27 +32,24 @@ describe('Dashboard page', () => {
     });
 
     it('should create a new tax record', () => {
-        const accountValue = '3300';
-        taxPage.selectATaxType();
-        taxPage.inputRateDetails(rateValue);
-        taxPage.inputAccountDetails(accountValue);
+        const accountValue = 3300;
+        taxPage.createTax(rateValue, accountValue);
         expect(taxPage.firstRowValue).to.contains(rateValue);
     });
 
     it('should be able to edit created tax record', () => {
-        taxPage.selectEditButton();
-        taxPage.inputRateDetails(rateEditedValue);
-        taxPage.clickSaveButton();
+        taxPage.editTax(rateEditedValue);
+        expect(taxPage.firstRowValue).to.contains(rateEditedValue);
+    });
+
+    it('should be able to search edited tax record', () => {
+        taxPage.searchTax(rateEditedValue);
         expect(taxPage.firstRowValue).to.contains(rateEditedValue);
     });
 
     it('should be able to delete created tax record', () => {
+        taxPage.removeFilter();
         taxPage.deleteARecord();
         expect(taxPage.firstRowValue).to.not.equal(rateEditedValue);
-    });
-
-    it('should navigate to product group page', () => {
-        const productgroup = taxPage.clickProductGroupTab();
-        expect(productgroup.title).to.equal('Product Groups');
     });
 });

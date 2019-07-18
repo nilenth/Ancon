@@ -36,23 +36,14 @@ describe('Product Group Page', () => {
         const prodGroupName = 'Group B';
         const prodGroupCost = 'ABC';
         const prodGroupAccount = '123456789';
-        productGroupPage.inputProdName(prodGroupName);
-        productGroupPage.selectGroupTax();
-        browser.pause(2000);
-        productGroupPage.inputProdCost(prodGroupCost);
-        productGroupPage.inputProdAccount(prodGroupAccount);
-        productGroupPage.clickSaveButton();
-        browser.pause(3000);
-        expect(productGroupPage.prodGroupFirstRawValue).to.contains(prodGroupName);
+        productGroupPage.createAProductGroup(prodGroupName, prodGroupAccount);
+        expect(productGroupPage.prodGroupfirstRowValue).to.contains(prodGroupName);
     });
 
     it('should be able to edit created product group record', () => {
         const prodNameEditedValue = 'Edit';
-        productGroupPage.selectEditButton();
-        productGroupPage.inputProdName(prodNameEditedValue);
-        productGroupPage.clickSaveButton();
-        browser.pause(2000);
-        expect(taxPage.firstRawValue).to.contains(prodNameEditedValue);
+        productGroupPage.editAProductGroup(prodNameEditedValue);
+        expect(taxPage.firstRowValue).to.contains(prodNameEditedValue);
     });
 
     it('should be able to delete created product group record', () => {

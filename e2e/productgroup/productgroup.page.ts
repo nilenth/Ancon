@@ -7,11 +7,10 @@ export class ProductGroupPage extends BasePage {
     private selectCreateNewSelector = '//button[@class="btn btn-primary create"]';
     private createNewPopUpSelector = '//h5[@class="modal-title"]';
     private productNameSelector = '//input[@name="name"]';
-    private selectGroupTaxSelector = '//div[@class="css-vj8t7z custom-select__control"]';
-    private productCostSelector = '//input[@name="outletProductGroupSettings.0.costCenter"]';
+    private selectGroupTaxSelector = '//div[contains(@class,"custom-select__indicators")]';
     private productAccountSelector = '//input[@name="outletProductGroupSettings.0.accountNumber"]';
     private selectSaveButtonSelector = '//span[contains(text(),"Save")]';
-    private firstRawValueSelector = '//td[@class="truncate-td"]';
+    private firstRowValueSelector = '//td[@class="truncate-td"]';
     private clickFirstCheckboxSelector = '//tbody[1]//tr[1]';
     private clickEditSelector = '//*[@id="root"]/div/div[1]/div/div[2]/div/div/div/div[2]/div[3]/div[1]/table/tbody[1]/tr/td[5]/button[1]/div/i';
     private clickMainDeleteSelector = '//body//thead//button[2]';
@@ -28,7 +27,6 @@ export class ProductGroupPage extends BasePage {
 
     get popupTitle(): string {
         $(this.createNewPopUpSelector).waitForVisible();
-        browser.pause(3000);
         return $(this.createNewPopUpSelector).getText();
     }
 
@@ -41,10 +39,6 @@ export class ProductGroupPage extends BasePage {
         return $(this.selectGroupTaxSelector).click();
     }
 
-    get inputProductCost() : Client<RawResult<Element>> {
-        return $(this.productCostSelector);
-    }
-
     get inputProductAccount() : Client<RawResult<Element>> {
         return $(this.productAccountSelector);
     }
@@ -54,9 +48,9 @@ export class ProductGroupPage extends BasePage {
         return $(this.selectSaveButtonSelector).click();
     }
 
-    get prodGroupFirstRawValue() : string {
-        $(this.firstRawValueSelector).waitForVisible();
-        return $(this.firstRawValueSelector).getText();
+    get prodGroupfirstRowValue() : string {
+        $(this.firstRowValueSelector).waitForVisible();
+        return $(this.firstRowValueSelector).getText();
     }
 
     get clickFirstCheckbox() {
@@ -89,10 +83,6 @@ export class ProductGroupPage extends BasePage {
         this.enter();
     }
 
-    public inputProdCost(prodGroupCost : string): void {
-        this.inputProductCost.setValue(prodGroupCost);
-    }
-
     public inputProdAccount(prodGroupAccount : string): void {
         this.inputProductAccount.setValue(prodGroupAccount);
     }
@@ -106,8 +96,20 @@ export class ProductGroupPage extends BasePage {
         this.clickEditIcon;
     }
 
+    public createAProductGroup(prodGroupName: string, prodGroupAccount: string): void {
+        this.inputProdName(prodGroupName);
+        this.selectGroupTax();
+        this.inputProdAccount(prodGroupAccount);
+        this.clickSaveButton();
+    }
+
+    public editAProductGroup(prodNameEditedValue: string): void {
+        this.selectEditButton();
+        this.inputProdName(prodNameEditedValue);
+        this.clickSaveButton();
+    }
+
     public deleteARecord(): void {
         this.clickMainDeleteButton;
-    //
     }
 }

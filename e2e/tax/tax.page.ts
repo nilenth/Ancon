@@ -18,6 +18,9 @@ export class TaxPage extends BasePage {
     private clickYesDeletePopupSelector = '//button[@class="btn btn-primary"]';
     private secondRowValueSelector = '//*[@id="root"]/div/div[1]/div/div[2]/div/div/div/div[2]/div[3]/div[1]/table/tbody[2]/tr/td[5]';
     private productGroupTabSelector = '//a[contains(text(),"Product Groups")]';
+    private searchFieldSelector = '//input[@placeholder="Search TAX"]';
+    private searchButtonSelector = '//i[@class="a_icon-search"]';
+    private clearAllSelector = '//button[@class="btn btn-secondary btn-xs"]';
 
     get title(): string {
         $(this.titleSelector).waitForVisible();
@@ -39,22 +42,22 @@ export class TaxPage extends BasePage {
         return $(this.selectTaxTypeSelector).click();
     }
 
-    get saveButton() : Client<RawResult<Element>> {
+    get saveButton(): Client<RawResult<Element>> {
         $(this.saveButtonSelector).waitForVisible();
         return $(this.saveButtonSelector);
     }
 
-    get inputRateAmount() : Client<RawResult<Element>> {
+    get inputRateAmount(): Client<RawResult<Element>> {
         $(this.saveButtonSelector).waitForVisible();
         return $(this.inputRateAmountSelector);
     }
 
-    get inputAccountNumber() : Client<RawResult<Element>> {
+    get inputAccountNumber(): Client<RawResult<Element>> {
         $(this.inputAccountNumberSelector).waitForVisible();
         return $(this.inputAccountNumberSelector);
     }
 
-    get firstRowValue() : string {
+    get firstRowValue(): string {
         $(this.firstRowValueSelector).waitForVisible();
         browser.pause(2000);
         return $(this.firstRowValueSelector).getText();
@@ -80,7 +83,7 @@ export class TaxPage extends BasePage {
         return $(this.clickYesDeletePopupSelector).click();
     }
 
-    get secondRowValue() : string {
+    get secondRowValue(): string {
         $(this.secondRowValueSelector).waitForVisible();
         return $(this.secondRowValueSelector).getText();
     }
@@ -88,6 +91,21 @@ export class TaxPage extends BasePage {
     get selectProductGroupTab() {
         $(this.productGroupTabSelector).waitForVisible();
         return $(this.productGroupTabSelector).click();
+    }
+
+    get searchTerm() {
+        $(this.searchFieldSelector).waitForVisible();
+        return $(this.searchFieldSelector);
+    }
+
+    get selectSearchButton() {
+        $(this.searchButtonSelector).waitForVisible();
+        return $(this.searchButtonSelector).click();
+    }
+
+    get clickClearAll() {
+        $(this.clearAllSelector).waitForVisible();
+        return $(this.clearAllSelector).click();
     }
 
     public clickCreateNewButton(): void {
@@ -100,12 +118,12 @@ export class TaxPage extends BasePage {
         this.enter();
     }
 
-    public inputRateDetails(rateAmount : number): void {
+    public inputRateDetails(rateAmount: number): void {
         this.inputRateAmount.clearElement();
         this.inputRateAmount.setValue(rateAmount);
     }
 
-    public inputAccountDetails(accountNumber : string): void {
+    public inputAccountDetails(accountNumber: number): void {
         this.inputAccountNumber.setValue(accountNumber);
         this.saveButton.click();
         browser.pause(2000);
@@ -125,13 +143,43 @@ export class TaxPage extends BasePage {
     }
 
     public deleteARecord(): void {
+        this.clickFirstCheckbox;
         this.clickMainDeleteIcon;
         this.clickYesDeletePopup;
         browser.pause(2000);
     }
 
+    public setSearchTerm(searchTerm: number): void {
+        this.searchTerm.setValue(searchTerm);
+    }
+
     public clickProductGroupTab(): ProductGroupPage {
         this.selectProductGroupTab;
         return new ProductGroupPage();
+    }
+
+    public clickSearchButton(): void {
+        this.selectSearchButton;
+    }
+
+    public removeFilter(): void {
+        this.clickClearAll;
+    }
+
+    public createTax(rateValue: number, accountValue: number): void {
+        this.selectATaxType();
+        this.inputRateDetails(rateValue);
+        this.inputAccountDetails(accountValue);
+    }
+
+    public editTax(rateEditedValue: number): void {
+        this.selectEditButton();
+        this.inputRateDetails(rateEditedValue);
+        this.clickSaveButton();
+    }
+
+    public searchTax(searchField: number): void {
+        this.setSearchTerm(searchField);
+        this.clickSearchButton();
     }
 }
