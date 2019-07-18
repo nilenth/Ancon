@@ -6,7 +6,7 @@ import { ProductPage } from '../product/product.page';
 import { MenuGroupPage } from '../menuGroup/menuGroup.page';
 import { MenuGroupDetailPage } from '../menuGroup/menuGroupDetail.page';
 
-describe('Dashboard page', () => {
+describe('Menu Group page', () => {
     let n = 0;
     let welcomepage: Welcomepage;
     let dashboardPage: DashboardPage;
@@ -56,15 +56,5 @@ describe('Dashboard page', () => {
         menuGroupDetailPage.createGroup(groupName, '#b34321');
         expect(menuGroupPage.lastRowValue).to.equal(groupName);
     });
-
-//     it('should save the created group', () => {
-//         menuGroupPage.clickSaveButton();
-//         expect(menuGroupPage.toastSuccessMessage).to.equal('Menu Group Updated Successfully');
-//     });
-
-//     it('should display edit menu group popup', () => {
-//         menuGroupPage.clickEditButton();
-//         expect(menuGroupDetailPage.titleEditPopup).to.equal(`Edit\n${groupName}`);
-//     });
-
+    
 });

@@ -4,7 +4,7 @@ import { LoginPage } from '../login/login.page';
 import { Welcomepage } from '../welcome/welcome.page';
 import { SettingPage } from '../setting/setting.page';
 
-describe('modifier page', () => {
+describe('Settings page', () => {
     let n = 0;
     let welcomepage: Welcomepage;
     let dashboardPage: DashboardPage;
