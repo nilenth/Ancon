@@ -9,6 +9,7 @@ describe('Dashboard page', () => {
     let welcomepage: Welcomepage;
     let dashboardPage: DashboardPage;
     let taxPage: TaxPage;
+    let secondRowValue = '0';
     const rateValue = Math.floor(Math.random() * (100 - 0) + 0);
     const rateEditedValue = rateValue + 1;
 
@@ -43,12 +44,18 @@ describe('Dashboard page', () => {
     });
 
     it('should be able to search edited tax record', () => {
+        secondRowValue = taxPage.secondRowValue;
         taxPage.searchTax(rateEditedValue);
         expect(taxPage.firstRowValue).to.contains(rateEditedValue);
     });
 
-    it('should be able to delete created tax record', () => {
+    it('should be able to remove search filter', () => {
         taxPage.removeFilter();
+        expect(taxPage.firstRowValue).to.contains(rateEditedValue);
+        expect(taxPage.secondRowValue).to.contains(secondRowValue);
+    });
+
+    it('should be able to delete created tax record', () => {
         taxPage.deleteARecord();
         expect(taxPage.firstRowValue).to.not.equal(rateEditedValue);
     });

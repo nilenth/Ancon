@@ -16,11 +16,11 @@ export class TaxPage extends BasePage {
     private editButtonSelector = '//*[@id="root"]/div/div[1]/div/div[2]/div/div/div/div[2]/div[3]/div[1]/table/tbody[1]/tr/td[7]/button[1]/div/i';
     private clickMainDeleteIconSelector = '//table[1]/thead[1]/tr[1]/th[3]/div[1]/button[2]/i[1]';
     private clickYesDeletePopupSelector = '//button[@class="btn btn-primary"]';
-    private secondRowValueSelector = '//*[@id="root"]/div/div[1]/div/div[2]/div/div/div/div[2]/div[3]/div[1]/table/tbody[2]/tr/td[5]';
+    private secondRowValueSelector = '//tbody[2]/tr[1]/td[5]';
     private productGroupTabSelector = '//a[contains(text(),"Product Groups")]';
     private searchFieldSelector = '//input[@placeholder="Search TAX"]';
     private searchButtonSelector = '//i[@class="a_icon-search"]';
-    private clearAllSelector = '//button[@class="btn btn-secondary btn-xs"]';
+    private removeSearchFilter = '//span[@class="a_icon-close"]';
 
     get title(): string {
         $(this.titleSelector).waitForVisible();
@@ -104,8 +104,8 @@ export class TaxPage extends BasePage {
     }
 
     get clickClearAll() {
-        $(this.clearAllSelector).waitForVisible();
-        return $(this.clearAllSelector).click();
+        $(this.removeSearchFilter).waitForVisible();
+        return $(this.removeSearchFilter).click();
     }
 
     public clickCreateNewButton(): void {
