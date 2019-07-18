@@ -10,13 +10,14 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [        
-        'e2e/**/product.spec.ts',
-        'e2e/**/hardware.spec.ts',
-        'e2e/**/ingredient.spec.ts',
-        'e2e/**/addOn.spec.ts',
-        'e2e/**/modifier.spec.ts',
-        'e2e/**/setting.spec.ts',
-        'e2e/**/menuGroup.spec.ts'
+        // 'e2e/**/product.spec.ts',
+        // 'e2e/**/hardware.spec.ts',
+        // 'e2e/**/ingredient.spec.ts',
+        // 'e2e/**/addOn.spec.ts',
+        // 'e2e/**/modifier.spec.ts',
+        // 'e2e/**/setting.spec.ts',
+        // 'e2e/**/menuGroup.spec.ts',
+        'e2e/**/tax.spec.ts'
     ],
     // Patterns to exclude.
     exclude: [

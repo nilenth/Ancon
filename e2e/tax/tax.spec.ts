@@ -9,6 +9,8 @@ describe('Dashboard page', () => {
     let welcomepage: Welcomepage;
     let dashboardPage: DashboardPage;
     let taxPage: TaxPage;
+    const rateValue = Math.floor(Math.random() * (100 - 0) + 0);
+    const rateEditedValue = rateValue + 1;
 
     afterEach((done) => {
         const filename = './e2e/screenshots/TaxPage_'.concat(String(n), '.png');
@@ -30,27 +32,23 @@ describe('Dashboard page', () => {
     });
 
     it('should create a new tax record', () => {
-        const accountValue = '1234567890';
-        const rateValue = '171';
+        const accountValue = '3300';
         taxPage.selectATaxType();
         taxPage.inputRateDetails(rateValue);
         taxPage.inputAccountDetails(accountValue);
-        expect(taxPage.firstRawValue).to.contains(rateValue);
+        expect(taxPage.firstRowValue).to.contains(rateValue);
     });
 
     it('should be able to edit created tax record', () => {
-        const rateEditedValue = '1';
         taxPage.selectEditButton();
         taxPage.inputRateDetails(rateEditedValue);
         taxPage.clickSaveButton();
-        expect(taxPage.firstRawValue).to.contains(rateEditedValue);
+        expect(taxPage.firstRowValue).to.contains(rateEditedValue);
     });
 
     it('should be able to delete created tax record', () => {
-        taxPage.selectFirstCheckbox();
-        const secondRowValue = taxPage.secondRawValue;
         taxPage.deleteARecord();
-        expect(taxPage.firstRawValue).to.be.equal(secondRowValue);
+        expect(taxPage.firstRowValue).to.not.equal(rateEditedValue);
     });
 
     it('should navigate to product group page', () => {

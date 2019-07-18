@@ -56,5 +56,5 @@ describe('Menu Group page', () => {
         menuGroupDetailPage.createGroup(groupName, '#b34321');
         expect(menuGroupPage.lastRowValue).to.equal(groupName);
     });
-    
+
 });

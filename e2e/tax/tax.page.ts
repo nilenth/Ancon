@@ -7,16 +7,16 @@ export class TaxPage extends BasePage {
     private titleSelector = '//h1[contains(text(),"Accounting")]';
     private selectCreateNewSelector = '//span[@class="web"]';
     private titleCreateNewTaxSelector = '//div[@class="modal-header"]';
-    private selectTaxTypeSelector = '//div[@class="css-vj8t7z custom-select__control"]';
+    private selectTaxTypeSelector = '//div[@class="custom-select__indicator custom-select__dropdown-indicator css-tlfecz-indicatorContainer"]';
     private saveButtonSelector = '//button[contains(@class,"Buttons_btn__3MjdI Buttons_btn-primary__22NL0 btn btn-primary")]';
     private inputAccountNumberSelector = '//input[@name="outletTaxSettings.0.accountNumber"]';
     private inputRateAmountSelector = '//input[@name="rate"]';
-    private firstRawValueSelector = '//tbody[1]//tr[1]//td[5]';
+    private firstRowValueSelector = '//tbody[1]//tr[1]//td[5]';
     private clickFirstCheckboxSelector = '//tbody[1]//tr[1]';
     private editButtonSelector = '//*[@id="root"]/div/div[1]/div/div[2]/div/div/div/div[2]/div[3]/div[1]/table/tbody[1]/tr/td[7]/button[1]/div/i';
-    private clickMainDeleteIconSelector = '//body//thead//button[2]';
+    private clickMainDeleteIconSelector = '//table[1]/thead[1]/tr[1]/th[3]/div[1]/button[2]/i[1]';
     private clickYesDeletePopupSelector = '//button[@class="btn btn-primary"]';
-    private secondRawValueSelector = '//*[@id="root"]/div/div[1]/div/div[2]/div/div/div/div[2]/div[3]/div[1]/table/tbody[2]/tr/td[5]';
+    private secondRowValueSelector = '//*[@id="root"]/div/div[1]/div/div[2]/div/div/div/div[2]/div[3]/div[1]/table/tbody[2]/tr/td[5]';
     private productGroupTabSelector = '//a[contains(text(),"Product Groups")]';
 
     get title(): string {
@@ -45,6 +45,7 @@ export class TaxPage extends BasePage {
     }
 
     get inputRateAmount() : Client<RawResult<Element>> {
+        $(this.saveButtonSelector).waitForVisible();
         return $(this.inputRateAmountSelector);
     }
 
@@ -53,9 +54,10 @@ export class TaxPage extends BasePage {
         return $(this.inputAccountNumberSelector);
     }
 
-    get firstRawValue() : string {
-        $(this.firstRawValueSelector).waitForVisible();
-        return $(this.firstRawValueSelector).getText();
+    get firstRowValue() : string {
+        $(this.firstRowValueSelector).waitForVisible();
+        browser.pause(2000);
+        return $(this.firstRowValueSelector).getText();
     }
 
     get clickEditButton() {
@@ -78,9 +80,9 @@ export class TaxPage extends BasePage {
         return $(this.clickYesDeletePopupSelector).click();
     }
 
-    get secondRawValue() : string {
-        $(this.secondRawValueSelector).waitForVisible();
-        return $(this.secondRawValueSelector).getText();
+    get secondRowValue() : string {
+        $(this.secondRowValueSelector).waitForVisible();
+        return $(this.secondRowValueSelector).getText();
     }
 
     get selectProductGroupTab() {
@@ -98,7 +100,8 @@ export class TaxPage extends BasePage {
         this.enter();
     }
 
-    public inputRateDetails(rateAmount : string): void {
+    public inputRateDetails(rateAmount : number): void {
+        this.inputRateAmount.clearElement();
         this.inputRateAmount.setValue(rateAmount);
     }
 
