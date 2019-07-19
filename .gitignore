@@ -3,4 +3,5 @@
 /node_modules
 /errorShots
 /e2e/screenshots
-
+/allure-report
+/allure-results

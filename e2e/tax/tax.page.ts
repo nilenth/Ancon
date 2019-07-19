@@ -12,8 +12,8 @@ export class TaxPage extends BasePage {
     private inputAccountNumberSelector = '//input[@name="outletTaxSettings.0.accountNumber"]';
     private inputRateAmountSelector = '//input[@name="rate"]';
     private firstRowValueSelector = '//tbody[1]//tr[1]//td[5]';
-    private clickFirstCheckboxSelector = '//tbody[1]//tr[1]';
-    private editButtonSelector = '//*[@id="root"]/div/div[1]/div/div[2]/div/div/div/div[2]/div[3]/div[1]/table/tbody[1]/tr/td[7]/button[1]/div/i';
+    private clickFirstCheckboxSelector = '//tbody[1]//tr[1]//td[2]//label[1]//span[1]';
+    private editButtonSelector = '//tbody[1]//tr[1]//td[7]//button[1]';
     private clickMainDeleteIconSelector = '//table[1]/thead[1]/tr[1]/th[3]/div[1]/button[2]/i[1]';
     private clickYesDeletePopupSelector = '//button[@class="btn btn-primary"]';
     private secondRowValueSelector = '//tbody[2]/tr[1]/td[5]';
@@ -21,6 +21,7 @@ export class TaxPage extends BasePage {
     private searchFieldSelector = '//input[@placeholder="Search TAX"]';
     private searchButtonSelector = '//i[@class="a_icon-search"]';
     private removeSearchFilter = '//span[@class="a_icon-close"]';
+    private titleEditTaxSelector = "//h5[contains(@class,'modal-title')]";
 
     get title(): string {
         $(this.titleSelector).waitForVisible();
@@ -108,6 +109,11 @@ export class TaxPage extends BasePage {
         return $(this.removeSearchFilter).click();
     }
 
+    get titleEditClient(): string {
+        $(this.titleEditTaxSelector).waitForVisible();
+        return $(this.titleEditTaxSelector).getText();
+    }
+
     public clickCreateNewButton(): void {
         this.selectCreateNewButton;
     }
@@ -173,7 +179,6 @@ export class TaxPage extends BasePage {
     }
 
     public editTax(rateEditedValue: number): void {
-        this.selectEditButton();
         this.inputRateDetails(rateEditedValue);
         this.clickSaveButton();
     }

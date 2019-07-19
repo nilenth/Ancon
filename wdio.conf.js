@@ -14,10 +14,10 @@ exports.config = {
         // 'e2e/**/hardware.spec.ts',
         // 'e2e/**/ingredient.spec.ts',
         // 'e2e/**/addOn.spec.ts',
-        // 'e2e/**/modifier.spec.ts',
+        //'e2e/**/modifier.spec.ts',
         // 'e2e/**/setting.spec.ts',
         // 'e2e/**/menuGroup.spec.ts',
-        'e2e/**/tax.spec.ts',
+         'e2e/**/tax.spec.ts',
         // 'e2e/**/productgroup.spec.ts'
     ],
     // Patterns to exclude.
@@ -129,7 +129,15 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: http://webdriver.io/guide/reporters/dot.html
-    reporters: ['spec'],
+    reporters: ['spec', 'allure'],
+    reporterOptions: {
+        allure: {
+            outputDir: 'allure-results',
+            disableWebdriverStepsReporting: false,
+            disableWebdriverScreenshotsReporting: false,
+            useCucumberStepReporter: false
+        }
+    },
     //
     // Options to be passed to Jasmine.
     jasmineNodeOpts: {

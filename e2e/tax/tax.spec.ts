@@ -10,7 +10,7 @@ describe('Dashboard page', () => {
     let dashboardPage: DashboardPage;
     let taxPage: TaxPage;
     let secondRowValue = '0';
-    const rateValue = Math.floor(Math.random() * (100 - 0) + 0);
+    const rateValue = Math.floor(Math.random() * (99 - 0) + 0);
     const rateEditedValue = rateValue + 1;
 
     afterEach((done) => {
@@ -36,6 +36,11 @@ describe('Dashboard page', () => {
         const accountValue = 3300;
         taxPage.createTax(rateValue, accountValue);
         expect(taxPage.firstRowValue).to.contains(rateValue);
+    });
+
+    it('should display edit tax popup', () => {
+        taxPage.selectEditButton();
+        expect(taxPage.titleEditClient).to.equal('Edit a Tax');
     });
 
     it('should be able to edit created tax record', () => {
